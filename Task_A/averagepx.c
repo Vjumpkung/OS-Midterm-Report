@@ -1,6 +1,5 @@
 #include <omp.h>
 #include <stdio.h>
-#include <stdlib.h>
 #define MAX_THREADS 128
 #define MAX_N 500000
 
@@ -10,6 +9,10 @@ int num_threads;
 
 int main()
 {
+  for (int i = 0; i < MAX_THREADS; i++)
+  {
+    partial_sum[i] = 0;
+  }
   int n = 0, sum = 0;
   scanf("%d", &n);
   for (int i = 0; i < n; i++)
@@ -18,30 +21,21 @@ int main()
   }
 #pragma omp parallel
   {
-    int threadID = omp_get_thread_num(), numThread = omp_get_num_threads(), chunkSize = n / numThread, start, end;
-    if (threadID == 0)
+    int thread_id = omp_get_thread_num();
+    int num_threads = omp_get_num_threads();
+    int chunk_size = MAX_N / num_threads;
+    int start = thread_id * chunk_size;
+    int end = (thread_id == num_threads - 1) ? MAX_N : start + chunk_size;
+
+    int local_sum = 0;
+    for (int i = start; i < end; i++)
     {
-      start = 0;
-      end = chunkSize;
+      local_sum += a[i];
     }
-    else if (threadID == numThread - 1)
-    {
-      start = threadID * chunkSize;
-      end = n;
-    }
-    else
-    {
-      start = threadID * chunkSize;
-      end = start + chunkSize;
-    }
-    int i;
-    for (i = start; i < end; i++)
-    {
-      partial_sum[threadID] += a[i];
-    }
+
+    partial_sum[thread_id] = local_sum;
   }
-  int i;
-  for (i = 0; i < MAX_THREADS; i++)
+  for (int i = 0; i < omp_get_max_threads(); i++)
   {
     sum += partial_sum[i];
   }
