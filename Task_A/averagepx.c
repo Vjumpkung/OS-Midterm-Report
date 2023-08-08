@@ -5,7 +5,6 @@
 #define MAX_N 500000
 
 int partial_sum[MAX_THREADS];
-int num_threads;
 
 int main()
 {
