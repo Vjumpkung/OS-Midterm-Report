@@ -1,10 +1,10 @@
 #include <omp.h>
 #include <stdio.h>
+#include <stdlib.h>
 #define MAX_THREADS 128
 #define MAX_N 500000
 
 int partial_sum[MAX_THREADS];
-int n, a[MAX_N];
 int num_threads;
 
 int main()
@@ -13,8 +13,9 @@ int main()
   {
     partial_sum[i] = 0;
   }
-  int n = 0, sum = 0;
+  int sum = 0, n;
   scanf("%d", &n);
+  int *a = (int *)malloc(n * sizeof(int));
   for (int i = 0; i < n; i++)
   {
     scanf("%d", &a[i]);
@@ -23,9 +24,9 @@ int main()
   {
     int thread_id = omp_get_thread_num();
     int num_threads = omp_get_num_threads();
-    int chunk_size = MAX_N / num_threads;
+    int chunk_size = n / num_threads;
     int start = thread_id * chunk_size;
-    int end = (thread_id == num_threads - 1) ? MAX_N : start + chunk_size;
+    int end = (thread_id == num_threads - 1) ? n : start + chunk_size;
 
     int local_sum = 0;
     for (int i = start; i < end; i++)
