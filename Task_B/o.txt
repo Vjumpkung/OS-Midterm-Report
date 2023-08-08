@@ -1,0 +1,35 @@
+Global variables:
+a    : 0x555555558014
+b    : 0x555555558018
+c    : 0x55555555801c
+count: 0x555555558020
+
+d: 0x7fffffffd914
+e: 0x5555555596b0
+d: 0x7fffffffd8f4
+e: 0x5555555596d0
+d: 0x7fffffffd8d4
+e: 0x5555555596f0
+
+Stack Overflow Test
+0x7ffffff9bea0
+0x7ffffff3a410
+0x7fffffed8980
+0x7fffffe76ef0
+0x7fffffe15460
+0x7fffffdb39d0
+0x7fffffd51f40
+0x7fffffcf04b0
+0x7fffffc8ea20
+0x7fffffc2cf90
+0x7fffffbcb500
+0x7fffffb69a70
+0x7fffffb07fe0
+0x7fffffaa6550
+0x7fffffa44ac0
+0x7fffff9e3030
+0x7fffff9815a0
+0x7fffff91fb10
+0x7fffff8be080
+0x7fffff85c5f0
+[1]    14712 segmentation fault  ./mem
