@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX_THREADS 128
-#define MAX_N 500000
 
 int partial_sum[MAX_THREADS];
 
